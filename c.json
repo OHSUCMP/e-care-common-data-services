@@ -1,0 +1,700 @@
+[
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-anxiety",
+        "meta": {
+            "versionId": "7",
+            "lastUpdated": "2024-05-15T21:38:54.000+00:00",
+            "source": "#gsxaCzTiBIwJMvR8"
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Anxiety</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "197480006",
+                    "display": "Anxiety disorder (disorder)2222"
+                }
+            ],
+            "text": "Anxiety disorderasdfafd"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2019-11-07",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        },
+        "note": [
+            {
+                "time": "2022"
+            }
+        ]
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-dyslipidemia",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:35.000+00:00",
+            "source": "#1h6OGnrBZ9OptY53",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Dyslipidemia</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "370992007",
+                    "display": "Dyslipidemia (disorder)"
+                }
+            ],
+            "text": "Dyslipidemia"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2014-08-20",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-ckd",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:35.000+00:00",
+            "source": "#1h6OGnrBZ9OptY53",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Chronic kidney disease</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active",
+                    "display": "Active"
+                }
+            ],
+            "text": "Active"
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed",
+                    "display": "Confirmed"
+                }
+            ],
+            "text": "Confirmed"
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "severity": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "24484000",
+                    "display": "Severe"
+                }
+            ],
+            "text": "Severe"
+        },
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "709044004",
+                    "display": "Chronic kidney disease (disorder)"
+                },
+                {
+                    "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                    "code": "N18.9",
+                    "display": "Chronic kidney disease"
+                }
+            ],
+            "text": "Chronic kidney disease"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2019-01-01",
+        "recordedDate": "2020-03-02",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-jones-vince",
+            "display": "Dr. Vince Jones, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-hypertension",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:35.000+00:00",
+            "source": "#1h6OGnrBZ9OptY53",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Hypertension</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "severity": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "255604002",
+                    "display": "Mild"
+                }
+            ],
+            "text": "Mild"
+        },
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "38341003",
+                    "display": "HTN - Hypertension"
+                }
+            ],
+            "text": "Hypertension"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2010-03-05",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-back-pain",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:35.000+00:00",
+            "source": "#1h6OGnrBZ9OptY53",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Low back pain</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active",
+                    "display": "Active"
+                }
+            ],
+            "text": "Active"
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed",
+                    "display": "Confirmed"
+                }
+            ],
+            "text": "Confirmed"
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "278860009",
+                    "display": "Chronic low back pain (finding)"
+                },
+                {
+                    "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                    "code": "M54.5",
+                    "display": "Low back pain"
+                }
+            ],
+            "text": "Chronic low back pain"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2017-08-02",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-difficulty-coping",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:29:27.000+00:00",
+            "source": "#eUCOdHnroslh5RLL",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Lack of understanding or coping strategies for food options in social situations</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "18232000",
+                    "display": "Difficulty coping (finding)"
+                }
+            ],
+            "text": "Lack of understanding or coping strategies for food options in social situations"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2022-03-30",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-diabetes",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:29:27.000+00:00",
+            "source": "#eUCOdHnroslh5RLL",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Diabetes</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                        "code": "problem-list-item",
+                        "display": "Problem List Item"
+                    }
+                ],
+                "text": "Problem"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "44054006",
+                    "display": "Diabetes mellitus type 2 (disorder)"
+                }
+            ],
+            "text": "Diabetes mellitus type 2"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2014-08-20",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-carlson-john",
+            "display": "Dr. John Carlson, MD"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-employment",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:28.000+00:00",
+            "source": "#KcJMVpcdnI4XwF5i",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Unemployed</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/us/core/CodeSystem/condition-category",
+                        "code": "health-concern"
+                    }
+                ],
+                "text": "Health Concern"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "73438004",
+                    "display": "Unemployed (finding)"
+                }
+            ],
+            "text": "Unemployed"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2010-03-22",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-johnson-sam",
+            "display": "Sam Johnson"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-cond-pnoelle-transportation",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:21:28.000+00:00",
+            "source": "#KcJMVpcdnI4XwF5i",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "generated",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Unable to drive a car</div>"
+        },
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active"
+                }
+            ]
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed"
+                }
+            ]
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/us/core/CodeSystem/condition-category",
+                        "code": "health-concern"
+                    }
+                ],
+                "text": "Health Concern"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "300635000",
+                    "display": "Unable to drive a car (finding)"
+                }
+            ],
+            "text": "Unable to drive a car"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "onsetDateTime": "2012-09-15",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-johnson-sam",
+            "display": "Sam Johnson"
+        }
+    },
+    {
+        "resourceType": "Condition",
+        "id": "mcc-condition-pnoelle-sdoh-food",
+        "meta": {
+            "versionId": "1",
+            "lastUpdated": "2023-11-10T15:29:30.000+00:00",
+            "source": "#wPTymvIfouuAtxwb",
+            "profile": [
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition"
+            ]
+        },
+        "text": {
+            "status": "extensions",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Nutrition impaired due to limited access to healthful foods</p></div>"
+        },
+        "extension": [
+            {
+                "url": "http://hl7.org/fhir/StructureDefinition/condition-assertedDate",
+                "valueDateTime": "2021-11-15"
+            }
+        ],
+        "clinicalStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                    "code": "active",
+                    "display": "Active"
+                }
+            ],
+            "text": "Active"
+        },
+        "verificationStatus": {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                    "code": "confirmed",
+                    "display": "Confirmed"
+                }
+            ],
+            "text": "Confirmed"
+        },
+        "category": [
+            {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/us/core/CodeSystem/condition-category",
+                        "code": "health-concern"
+                    }
+                ],
+                "text": "Health Concern"
+            },
+            {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "LG41762-2",
+                        "display": "Social Determinants Of Health"
+                    }
+                ],
+                "text": "Social Determinants Of Health"
+            }
+        ],
+        "code": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "445281000124101",
+                    "display": "Nutrition impaired due to limited access to healthful foods (finding)"
+                }
+            ],
+            "text": "Nutrition impaired due to limited access to healthful foods (finding)"
+        },
+        "subject": {
+            "reference": "Patient/mcc-pat-pnoelle",
+            "display": "Patricia Noelle"
+        },
+        "recordedDate": "2022-08-15T17:15:07-08:00",
+        "asserter": {
+            "reference": "Practitioner/mcc-prac-johnson-sam",
+            "display": "Sam Johnson"
+        },
+        "evidence": [
+            {
+                "detail": [
+                    {
+                        "reference": "Observation/mcc-obs-pnoelle-sdoh-hunger",
+                        "display": "Within the past 12 months we worried whether our food would run out before we got money to buy more [U.S. FSS]"
+                    }
+                ]
+            }
+        ]
+    }
+]

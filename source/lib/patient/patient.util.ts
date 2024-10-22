@@ -1,4 +1,4 @@
-import { CodeableConcept, Resource } from 'fhir/r4';
+import { Resource } from 'fhir/r4';
 import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccPatient, MccPatientSummary } from '../../types/mcc-types';
@@ -43,15 +43,6 @@ export const resourcesFrom = (response: fhirclient.JsonArray): Resource[] => {
     );
 };
 
-export const getConceptDisplayString = (code: CodeableConcept): string => {
-  if (code.text) return code.text;
-
-  if (code.coding) {
-    return code.coding.reduce((_, curr) => curr.display, '');
-  }
-
-  return '';
-};
 
 export const transformToPatientSummary = (patient: MccPatient): MccPatientSummary => {
   const raceExtension = patient.extension ? patient.extension.find(ext => ext.url.includes('StructureDefinition/us-core-race')) : undefined;

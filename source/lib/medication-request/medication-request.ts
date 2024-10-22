@@ -6,11 +6,11 @@ import { fhirclient } from 'fhirclient/lib/types';
 import { MccMedication, MccMedicationSummary, MccMedicationSummaryList } from '../../types/mcc-types';
 import log from '../../utils/loglevel';
 import { getConditionFromUrl } from '../careplan';
+import { getConceptDisplayString } from '../goal/goal.util';
 import { convertNoteToString } from '../observation/observation.util';
 import { displayDate } from '../service-request/service-request.util';
 
 import {
-  getConceptDisplayString,
   notFoundResponse,
   resourcesFrom,
   resourcesFromObject,

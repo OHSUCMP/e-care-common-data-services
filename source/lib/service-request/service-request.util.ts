@@ -3,6 +3,7 @@ import { Period } from 'fhir/r4';
 import { CodeableConcept, Resource, ServiceRequest, Timing } from 'fhir/r4';
 import { fhirclient } from 'fhirclient/lib/types';
 import { MccServiceRequestSummary } from '../../types/mcc-types';
+import { getConceptDisplayString } from '../goal/goal.util';
 
 
 export const fhirOptions: fhirclient.FhirOptions = {
@@ -53,15 +54,6 @@ export const resourcesFrom = (response: fhirclient.JsonArray): Resource[] => {
     );
 };
 
-export const getConceptDisplayString = (code: CodeableConcept): string => {
-  if (code.text) return code.text;
-
-  if (code.coding) {
-    return code.coding.reduce((_, curr) => curr.display, '');
-  }
-
-  return '';
-};
 
 export const transformToServiceRequest = function (serviceRequest: ServiceRequest, referenceDisplay: Map<string, string>): MccServiceRequestSummary {
   return {

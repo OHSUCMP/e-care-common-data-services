@@ -43,15 +43,7 @@ export const resourcesFrom = (response: fhirclient.JsonObject): Resource[] => {
     );
 };
 
-export const getConceptDisplayString = (code: CodeableConcept): string => {
-  if (code.text) return code.text;
 
-  if (code.coding) {
-    return code.coding.reduce((_, curr) => curr.display, '');
-  }
-
-  return '';
-};
 
 export const getConceptCode = (code: CodeableConcept): string => {
 

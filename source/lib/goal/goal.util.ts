@@ -306,6 +306,10 @@ export const resourcesFrom = (response: fhirclient.JsonArray): Resource[] => {
 };
 
 export const getConceptDisplayString = (code: CodeableConcept): string => {
+
+  if (code == null) {
+    return '';
+  }
   if (code.text) return code.text;
 
   if (code.coding) {

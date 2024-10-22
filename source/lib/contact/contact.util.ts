@@ -1,7 +1,8 @@
-import { CareTeamParticipant, CodeableConcept, Practitioner, Reference, Resource } from 'fhir/r4';
+import { CareTeamParticipant, Practitioner, Reference, Resource } from 'fhir/r4';
 import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccPatientContact } from '../../types/mcc-types';
+import { getConceptDisplayString } from '../goal/goal.util';
 
 // import log from '../../utils/loglevel';
 
@@ -51,15 +52,6 @@ export const resourcesFrom2 = (response: fhirclient.JsonArray): Resource[] => {
     );
 };
 
-export const getConceptDisplayString = (code: CodeableConcept): string => {
-  if (code.text) return code.text;
-
-  if (code.coding) {
-    return code.coding.reduce((_, curr) => curr.display, '');
-  }
-
-  return '';
-};
 
 function resolve(ref?: Reference, members?: Map<string, Practitioner>) {
   let resourceID: string | undefined = ref?.reference?.split('/').reverse()?.[0]

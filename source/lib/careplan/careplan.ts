@@ -4,10 +4,10 @@ import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccCarePlan, MccCondition } from '../../types/mcc-types';
 import log from '../../utils/loglevel';
+import { getConceptDisplayString } from '../goal/goal.util';
 
 import {
   fhirOptions,
-  getConceptDisplayString,
   notFoundResponse,
   resourcesFrom,
   resourcesFromObject,
