@@ -12,11 +12,11 @@ import { displayDate } from '../service-request/service-request.util';
 import {
   getSupplementalDataClient,
   notFoundResponse,
-  resourcesFrom,
+  // resourcesFrom,
   resourcesFromObject,
   resourcesFromObjectArray,
   resourcesFromObjectArray2,
-  saveFHIRAccessData,
+  // saveFHIRAccessData,
   transformToMccGoalSummary,
 } from './goal.util';
 
@@ -26,8 +26,8 @@ enum ACTIVE_STATUS {
   IGNORE
 }
 
-const LF_ID = '-MCP'
-const fcCurrentStateKey = 'fhir-client-state' + LF_ID
+// const LF_ID = '-MCP'
+// const fcCurrentStateKey = 'fhir-client-state' + LF_ID
 
 const ACTIVE_KEYS = {
   proposed: ACTIVE_STATUS.ACTIVE,
@@ -233,40 +233,29 @@ export const getSummaryGoals = async (sdsURL: string, authURL: string, sdsScope:
 */
 
 
-export const getGoals = async (sdsURL: string, authURL: string, sdsScope: string): Promise<MccGoal[]> => {
-  const client = await FHIR.oauth2.ready();
+// export const getGoalsWtF = async (): Promise<MccGoal[]> => {
+//   const client = await FHIR.oauth2.ready();
+//   await saveFHIRAccessData(fcCurrentStateKey, client.state, false).then(() => {
+//     console.log('fhirClientState saved/promise returned')
+//   }).catch((e) => console.log(e))
+//   const queryPath = `Goal`;
+//   const goalRequest: fhirclient.JsonArray = await client.patient.request(
+//     queryPath
+//   );
 
-  console.error('start saveFHIRAccessData');
+//   // goal from problem list item
+//   const filteredGoals: MccGoal[] = resourcesFrom(
+//     goalRequest
+//   ) as MccGoal[];
 
-  await saveFHIRAccessData(fcCurrentStateKey, client.state, false).then(() => {
-    console.log('fhirClientState saved/promise returned')
-  }).catch((e) => console.log(e))
+//   log.info(
+//     `getGoals - successful`
+//   );
 
-  console.error('end saveFHIRAccessData');
+//   log.debug({ serviceName: 'getGoals', result: filteredGoals });
 
-  const sdsClient: Client = await getSupplementalDataClient(client, sdsURL, authURL, sdsScope);
-  console.error(
-    `getGoals - ` + JSON.stringify(sdsClient)
-  );
-
-  const queryPath = `Goal`;
-  const goalRequest: fhirclient.JsonArray = await client.patient.request(
-    queryPath
-  );
-
-  // goal from problem list item
-  const filteredGoals: MccGoal[] = resourcesFrom(
-    goalRequest
-  ) as MccGoal[];
-
-  log.info(
-    `getGoals - successful`
-  );
-
-  log.debug({ serviceName: 'getGoals', result: filteredGoals });
-
-  return filteredGoals;
-};
+//   return filteredGoals;
+// };
 
 export const getGoal = async (id: string): Promise<MccGoal> => {
   if (!id) {

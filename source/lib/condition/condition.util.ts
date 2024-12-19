@@ -81,9 +81,16 @@ export const transformToConditionSummary = async (fhirCondition: MccCondition): 
   const profileMapping = {
     '2.16.840.1.113762.1.4.1222.159': 'CKD'
   }
-  const code = fhirCondition.code.coding[0];
+  var code
+  if (fhirCondition?.code?.coding) {
+    code = fhirCondition?.code?.coding;
+  }
 
-  const codeName = await getFilenameFromValueSetCode(code.system, code.code)
+  var codeName = ''
+  if (code) {
+    codeName = await getFilenameFromValueSetCode(code.system, code.code)
+  }
+
 
   const transformedData: MccConditionSummary = {
     code: fhirCondition.code,
