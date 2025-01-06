@@ -276,6 +276,7 @@ export const transformToMccGoalSummary = (goal: MccGoal): MccGoalSummary => {
   })) || [];
   // const useStartConcept = !!goal.startCodeableConcept
   const fhirid = goal.id || '';
+  // const source = goal.
 
   return {
     priority,
@@ -290,6 +291,6 @@ export const transformToMccGoalSummary = (goal: MccGoal): MccGoalSummary => {
     expressedBy,
     targets,
     // useStartConcept,
-    fhirid,
+    fhirid
   };
 }

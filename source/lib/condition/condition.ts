@@ -78,7 +78,6 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
   if (sdsClient) {
     try {
       const linkages = await sdsClient.request('Linkage?item=Patient/' + sdsClient.patient.id);
-      console.log("patientId +linkages " + JSON.stringify(linkages));
       const urlSet = new Set();
 
       urlSet.add(launchURL)
@@ -101,9 +100,8 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
             // Process third-party goals
             const thirdPartyGoals: Condition[] = resourcesFrom(response) as Condition[];
             thirdPartyGoals.forEach(condition => {
-              condition.code.text = condition.code.text + "(" + item2.resource.extension[0].valueUrl + ")"
               condition.recorder = {
-                display: "(" + item2.resource.extension[0].valueUrl + ")"
+                display: item2.resource.extension[0].valueUrl
               };
               allThirdPartyMappedConditions.push(condition);
             });

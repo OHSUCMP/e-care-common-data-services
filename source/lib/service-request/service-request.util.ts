@@ -63,7 +63,8 @@ export const transformToServiceRequest = function (serviceRequest: ServiceReques
     status: serviceRequest.status,
     displayDate: serviceRequest.occurrenceTiming ? displayTiming(serviceRequest.occurrenceTiming) : (serviceRequest.occurrencePeriod ? displayPeriod(serviceRequest.occurrencePeriod) : (serviceRequest.occurrenceDateTime ? displayDate(serviceRequest.occurrenceDateTime) : serviceRequest.intent.charAt(0).toUpperCase() + serviceRequest.intent.slice(1))),
     reasons: serviceRequest.reasonCode ? getConceptDisplayString(serviceRequest.reasonCode[0]) : (serviceRequest.reasonReference ? referenceDisplay.get(serviceRequest.reasonReference[0].reference) : 'Unknown'),
-    performer: serviceRequest.performer ? serviceRequest.performer[0].display : where
+    performer: serviceRequest.performer ? serviceRequest.performer[0].display : '',
+    source: where
   };
 }
 

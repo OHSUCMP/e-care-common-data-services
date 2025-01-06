@@ -73,7 +73,9 @@ export const getSupplementalData = async (launchURL: string, sdsClient: Client):
           const thirdPartyMappedGoals: MccGoalSummary[] = thirdPartyGoals.map(transformToMccGoalSummary);
 
           thirdPartyMappedGoals.forEach(goal => {
-            goal.expressedBy = (goal.expressedBy ? goal.expressedBy : '') + ' (' + item2.resource.extension[0].valueUrl + ')';
+            goal.expressedBy = (goal.expressedBy ? goal.expressedBy : '');
+
+            goal.source = item2.resource.extension[0].valueUrl
             allThirdPartyMappedGoals.push(goal);
           });
         }

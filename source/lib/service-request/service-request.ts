@@ -38,7 +38,7 @@ const getSupplementalData = async (launchURL: string, sdsClient: Client): Promis
           thirdPartyServiceRequests.forEach(serviceRequest => {
 
             serviceRequest.locationReference.push({
-              display: "(" + item2.resource.extension[0].valueUrl + ")"
+              display: item2.resource.extension[0].valueUrl
             });
             allThirdPartyServiceRequests.push(serviceRequest);
           });

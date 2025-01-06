@@ -40,7 +40,6 @@ const getSupplementalData = async (launchURL: string, sdsClient: Client): Promis
   try {
 
     const linkages = await sdsClient.request('Linkage?item=Patient/' + sdsClient.patient.id);
-    console.log("patientId +linkages " + JSON.stringify(linkages));
     const urlSet = new Set();
     urlSet.add(launchURL)
     // Loop through second set of linkages
@@ -60,7 +59,7 @@ const getSupplementalData = async (launchURL: string, sdsClient: Client): Promis
           const thirdPartyMccMedication: MccMedication[] = resourcesFromObjectArray(response) as MccMedication[];
           thirdPartyMccMedication.forEach(mccMedication => {
             mccMedication.recorder = {
-              display: "(" + item2.resource.extension[0].valueUrl + ")"
+              display: item2.resource.extension[0].valueUrl
             };
             allThirdPartyMccMedicationSummary.push(mccMedication);
           });
@@ -109,11 +108,12 @@ export const getSummaryMedicationRequests = async (sdsURL: string, authURL: stri
       status: mc.status,
       medication: mc.medicationCodeableConcept ? mc.medicationCodeableConcept.text : mc.medicationReference ? mc.medicationReference.display : 'missing',
       dosages: mc.dosageInstruction ? mc.dosageInstruction[0].text : '',
-      requestedBy: mc.requester ? mc.requester.display + where : where,
+      requestedBy: mc.requester ? mc.requester.display : '',
       reasons: condition ? getConceptDisplayString(condition.code) : '',
       effectiveDate: mc.authoredOn ? displayDate(mc.authoredOn) : '',
       refillsPermitted: 'Unknown',
-      notes: mc.note ? convertNoteToString(mc.note) : ''
+      notes: mc.note ? convertNoteToString(mc.note) : '',
+      source: where
     }
   }))
 
