@@ -78,7 +78,6 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
   if (sdsClient) {
     try {
       const linkages = await sdsClient.request('Linkage?item=Patient/' + sdsClient.patient.id);
-      console.log("patientId +linkages " + JSON.stringify(linkages));
       const urlSet = new Set();
 
       urlSet.add(launchURL)
@@ -101,8 +100,9 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
             // Process third-party goals
             const thirdPartyGoals: Condition[] = resourcesFrom(response) as Condition[];
             thirdPartyGoals.forEach(condition => {
-
-              condition.code.text = condition.code.text + "(" + item2.resource.extension[0].valueUrl + ")"
+              condition.recorder = {
+                display: item2.resource.extension[0].valueUrl
+              };
               allThirdPartyMappedConditions.push(condition);
             });
           }
@@ -180,7 +180,9 @@ export const getSummaryConditions = async (sdsURL: string, authURL: string, sdsS
   recordProvenance(provenance1);
   recordProvenance(provenance2);
 
-  const filteredConditions = [...conditions1, ...conditions2, ...sdsfilteredConditions2];
+  const thirdPartyStuff = await getSupplementalConditions(client.state.serverUrl, sdsClient);
+
+  const filteredConditions = [...conditions1, ...conditions2, ...sdsfilteredConditions2, ...thirdPartyStuff];
 
   const mappedFilterConditions = await Promise.all(
     filteredConditions.map(async (condition) => {
@@ -189,6 +191,12 @@ export const getSummaryConditions = async (sdsURL: string, authURL: string, sdsS
       // Attach the Provenance data from the map to the transformed condition
       const provenance: Provenance = provenanceMap.get(`Condition/${condition.id}`);
       transformedCondition.provenance = displayTransmitter(provenance);
+
+      if (!transformedCondition.provenance && condition.recorder) {
+        transformedCondition.provenance = condition.recorder.display
+      }
+
+
 
       return transformedCondition;
     })

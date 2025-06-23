@@ -1,16 +1,17 @@
 /* eslint-disable functional/immutable-data */
 import { CodeableConcept } from 'fhir/r4';
 import FHIR from 'fhirclient';
+import Client from 'fhirclient/lib/Client';
 import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccMedication, MccMedicationSummary, MccMedicationSummaryList } from '../../types/mcc-types';
 import log from '../../utils/loglevel';
 import { getConditionFromUrl } from '../careplan';
+import { getConceptDisplayString, getSupplementalDataClient } from '../goal/goal.util';
 import { convertNoteToString } from '../observation/observation.util';
 import { displayDate } from '../service-request/service-request.util';
 
 import {
-  getConceptDisplayString,
   notFoundResponse,
   resourcesFrom,
   resourcesFromObject,
@@ -33,26 +34,74 @@ const ACTIVE_KEYS = {
   unknown: ACTIVE_STATUS.INACTIVE,
 }
 
-export const getSummaryMedicationRequests = async (careplanId?: string): Promise<MccMedicationSummaryList> => {
-  const client = await FHIR.oauth2.ready();
+
+const getSupplementalData = async (launchURL: string, sdsClient: Client): Promise<MccMedication[]> => {
+  let allThirdPartyMccMedicationSummary: MccMedication[] = [];
+  try {
+
+    const linkages = await sdsClient.request('Linkage?item=Patient/' + sdsClient.patient.id);
+    const urlSet = new Set();
+    urlSet.add(launchURL)
+    // Loop through second set of linkages
+    for (const entry2 of linkages.entry) {
+      for (const item2 of entry2.resource.item) {
+        if (item2.type === 'alternate' && !urlSet.has(item2.resource.extension[0].valueUrl)) {
+          urlSet.add(item2.resource.extension[0].valueUrl);
+
+          // Prepare FHIR request headers
+          const fhirHeaderRequestOption = {} as fhirclient.RequestOptions;
+          const fhirHeaders = {
+            'X-Partition-Name': item2.resource.extension[0].valueUrl
+          };
+          fhirHeaderRequestOption.headers = fhirHeaders;
+          fhirHeaderRequestOption.url = 'MedicationRequest?subject=' + item2.resource.reference;
+          const response = await sdsClient.request(fhirHeaderRequestOption);
+          const thirdPartyMccMedication: MccMedication[] = resourcesFromObjectArray(response) as MccMedication[];
+          thirdPartyMccMedication.forEach(mccMedication => {
+            mccMedication.recorder = {
+              display: item2.resource.extension[0].valueUrl
+            };
+            allThirdPartyMccMedicationSummary.push(mccMedication);
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("An error occurred: " + error.message);
+  }
+
+  return allThirdPartyMccMedicationSummary;
+};
+
+
+export const getSummaryMedicationRequests = async (sdsURL: string, authURL: string, sdsScope: string): Promise<MccMedicationSummaryList> => {
+
+  const theCurrentClient = await FHIR.oauth2.ready();
+
+  const sdsClient: Client = await getSupplementalDataClient(theCurrentClient, sdsURL, authURL, sdsScope);
 
   const activeMedications: MccMedicationSummary[] = [];
   const inactiveMedications: MccMedicationSummary[] = [];
 
   const queryPath = `MedicationRequest`;
-  const goalRequest: fhirclient.JsonObject = await client.patient.request(
+  const medicationRequest: fhirclient.JsonObject = await theCurrentClient.patient.request(
     queryPath
   );
 
-  log.debug({ serviceName: 'getSummaryMedicationRequests', result: { goalRequest, careplanId } });
+  log.debug({ serviceName: 'getSummaryMedicationRequests', result: { medicationRequest } });
 
-  // goal from problem list item
-  const filteredMedicationRequests: MccMedication[] = resourcesFromObjectArray(
-    goalRequest
+  const medicationRequests: MccMedication[] = resourcesFromObjectArray(
+    medicationRequest
   ) as MccMedication[];
 
-  const mappedMedicationRequest: MccMedicationSummary[] = await Promise.all(filteredMedicationRequests.map(async (mc) => {
+  const sdsMedicationRequests: MccMedication[] = await getSupplementalData(theCurrentClient.state.serverUrl, sdsClient);
+
+
+  const allMedicationRequests: MccMedication[] = [...medicationRequests, ...sdsMedicationRequests];
+
+  const mappedMedicationRequest: MccMedicationSummary[] = await Promise.all(allMedicationRequests.map(async (mc) => {
     const condition = mc.reasonReference ? await getConditionFromUrl(mc.reasonReference[0].reference) : { code: [] as CodeableConcept }
+    const where = mc.recorder ? mc.recorder.display : '';
     return {
       type: mc.resourceType,
       fhirId: mc.id,
@@ -64,6 +113,7 @@ export const getSummaryMedicationRequests = async (careplanId?: string): Promise
       effectiveDate: mc.authoredOn ? displayDate(mc.authoredOn) : '',
       refillsPermitted: 'Unknown',
       notes: mc.note ? convertNoteToString(mc.note) : '',
+      source: where
     }
   }))
 
@@ -95,7 +145,7 @@ export const getSummaryMedicationRequests = async (careplanId?: string): Promise
     `getSummaryMedicationRequests - successful`
   );
 
-  log.debug({ serviceName: 'getSummaryMedicationRequests', result: { mccMedicationSummaryRequest, careplanId } });
+  log.debug({ serviceName: 'getSummaryMedicationRequests', result: { mccMedicationSummaryRequest } });
 
   return mccMedicationSummaryRequest;
 };

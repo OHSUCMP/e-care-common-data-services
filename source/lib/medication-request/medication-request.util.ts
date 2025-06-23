@@ -1,4 +1,4 @@
-import { CodeableConcept, Resource } from 'fhir/r4';
+import { Resource } from 'fhir/r4';
 import { fhirclient } from 'fhirclient/lib/types';
 import { MccMedication } from '../../types/mcc-types';
 
@@ -49,12 +49,3 @@ export const resourcesFrom = (response: fhirclient.JsonArray): Resource[] => {
     );
 };
 
-export const getConceptDisplayString = (code: CodeableConcept): string => {
-  if (code.text) return code.text;
-
-  if (code.coding) {
-    return code.coding.reduce((_, curr) => curr.display, '');
-  }
-
-  return '';
-};

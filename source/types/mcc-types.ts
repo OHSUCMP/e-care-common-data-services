@@ -296,6 +296,7 @@ export type MccGoalSummary = {
   relatedGoals?: Array<MccGoalRelationship>;
   notes?: Array<string>;
   mostrecentresult?: string;
+  source?: string
 }
 
 export type MccMedicationSummary = {
@@ -309,6 +310,7 @@ export type MccMedicationSummary = {
   effectiveDate: string;
   refillsPermitted: string;
   notes: string;
+  source: string;
 }
 
 export type MccMedicationSummaryList = {
@@ -378,6 +380,7 @@ export type MccServiceRequestSummary = {
   performer?: string;
   reasons?: string;
   fhirid?: string;
+  source?: string
 }
 
 

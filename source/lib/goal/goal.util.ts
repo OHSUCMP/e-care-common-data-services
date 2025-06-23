@@ -172,9 +172,9 @@ export const getSupplementalDataClient = async (currentClient: Client, sdsURL: s
           return sdsClient
         }
       }
-      console.error("getSupplementalDataClient FHIR.client(sdsFhirAccessDataObject) sdsClient = ", sdsClient)
+      console.log("getSupplementalDataClient FHIR.client(sdsFhirAccessDataObject) sdsClient = ", sdsClient)
     } else {
-      console.error("getSupplementalDataClient() authFhirAccessDataObject is null, cannot connect to client")
+      console.log("getSupplementalDataClient() authFhirAccessDataObject is null, cannot connect to client")
     }
     return sdsClient
   }
@@ -185,69 +185,6 @@ export const getSupplementalDataClient = async (currentClient: Client, sdsURL: s
   // This includes that knowledge in ProviderLogin w/o the additional logic it has now to determine that.
   return sdsClient
 }
-
-// export const getSupplementalDataClientaaa = async (): Promise<Client | undefined> => {
-//   console.error('getSupplementalDataClient Start');
-//   let sdsClient: Client | undefined
-//   // const authURL = window['env']['REACT_APP_SHARED_DATA_AUTH_ENDPOINT']
-//   // const sdsURL = window['env']['REACT_APP_SHARED_DATA_ENDPOINT']
-//   // const sdsScope = window['env']['REACT_APP_SHARED_DATA_SCOPE']
-
-//   const sdsURL = "http://localhost:8080/fhir"
-//   const authURL = "https://gw.interop.community/MCCDevelopment/data"
-//   const sdsScope = "launch/patient openid fhirUser patient/* user/*.cruds	patient/*.cruds"
-
-//   const sdsClientId = window['env']['REACT_APP_SHARED_DATA_CLIENT_ID']
-
-//   console.error('getSupplementalDataClient authURL: ', authURL)
-//   console.error('getSupplementalDataClient sdsURL: ', sdsURL)
-//   console.error('getSupplementalDataClient sdsScope: ', sdsScope)
-//   // console.log('getSupplementalDataClient sdsScope: ', sdsClientId)
-
-
-//   if (sdsClientId && sdsURL) {
-//     console.error('getSupplementalDataClient if (sdsClientId && sdsURL) == true; authorize in using client id')
-//     const sdsFhirAccessDataObject: fhirclient.ClientState | undefined =
-//       await extractFhirAccessDataObjectIfGivenEndpointMatchesAnyPriorEndpoint(sdsURL)
-//     if (sdsFhirAccessDataObject) {
-//       sdsClient = FHIR.client(sdsFhirAccessDataObject)
-//     }
-//   }
-
-//   else if (authURL && sdsURL && sdsScope) {
-//     console.error('getSupplementalDataClient else if (authURL && sdsURL && sdsScope) == true; authorize using existing token')
-
-//     console.error('getSupplementalDataClient authURL: ', authURL)
-//     console.error('getSupplementalDataClient sdsURL: ', sdsURL)
-//     console.error('getSupplementalDataClient sdsScope: ', sdsScope)
-
-//     const authFhirAccessDataObject: fhirclient.ClientState | undefined =
-//       await extractFhirAccessDataObjectIfGivenEndpointMatchesAnyPriorEndpoint(authURL)
-
-//     console.error('getSupplementalDataClient found extractFhirAccessDataObjectIfGivenEndpointMatchesAnyPriorEndpoint using ' + authURL);
-//     if (authFhirAccessDataObject) {
-//       console.error("getSupplementalDataClient authFhirAccessDataObject is truthy")
-//       // Replace the serverURL and client scope with Shared Data endpoint and scope
-//       var sdsFhirAccessDataObject = authFhirAccessDataObject
-//       sdsFhirAccessDataObject.serverUrl = sdsURL
-//       sdsFhirAccessDataObject.scope = sdsScope
-//       if (sdsFhirAccessDataObject.tokenResponse) {
-//         sdsFhirAccessDataObject.tokenResponse.scope = sdsScope
-//       }
-//       console.error("getSupplementalDataClient  getSupplementalDataClient() sdsFhirAccessDataObject = ", sdsFhirAccessDataObject)
-//       // Connect to the client
-//       sdsClient = FHIR.client(sdsFhirAccessDataObject)
-//       console.error("getSupplementalDataClient FHIR.client(sdsFhirAccessDataObject) sdsClient = ", sdsClient)
-//     }
-//     else {
-//       console.error("getSupplementalDataClient() authFhirAccessDataObject is null, cannot connect to client")
-//     }
-//   }
-
-//   console.error('getSupplementalDataClient End');
-//   return sdsClient
-// }
-
 
 export const fhirOptions: fhirclient.FhirOptions = {
   pageLimit: 0,
@@ -306,6 +243,10 @@ export const resourcesFrom = (response: fhirclient.JsonArray): Resource[] => {
 };
 
 export const getConceptDisplayString = (code: CodeableConcept): string => {
+
+  if (code == null) {
+    return '';
+  }
   if (code.text) return code.text;
 
   if (code.coding) {
@@ -335,6 +276,7 @@ export const transformToMccGoalSummary = (goal: MccGoal): MccGoalSummary => {
   })) || [];
   // const useStartConcept = !!goal.startCodeableConcept
   const fhirid = goal.id || '';
+  // const source = goal.
 
   return {
     priority,
@@ -349,6 +291,6 @@ export const transformToMccGoalSummary = (goal: MccGoal): MccGoalSummary => {
     expressedBy,
     targets,
     // useStartConcept,
-    fhirid,
+    fhirid
   };
 }
