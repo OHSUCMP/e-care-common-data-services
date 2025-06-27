@@ -3,15 +3,17 @@ import FHIR from 'fhirclient';
 import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccCarePlan, MccCondition } from '../../types/mcc-types';
+import { resourcesFrom } from '../../utils/fhir';
 import log from '../../utils/loglevel';
 import { getConceptDisplayString } from '../goal/goal.util';
 
 import {
   fhirOptions,
   notFoundResponse,
-  resourcesFrom,
   resourcesFromObject,
 } from './careplan.util';
+
+
 
 export const getCareplans = async (sort?: string, max?: string): Promise<MccCarePlan[]> => {
   const sortType = sort === 'descending' ? '-date' : 'date';

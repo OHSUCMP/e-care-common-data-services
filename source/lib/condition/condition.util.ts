@@ -32,19 +32,6 @@ export const resourcesFromObject = (
   return resource;
 };
 
-export const resourcesFrom = (response: fhirclient.JsonObject): Resource[] => {
-  const entries: fhirclient.JsonObject[] = response?.entry
-    ? (response.entry as [fhirclient.JsonObject])
-    : [];
-  return entries
-    .map((entry: fhirclient.JsonObject) => entry?.resource as any)
-    .filter(
-      (resource: Resource) => resource.resourceType !== 'OperationOutcome'
-    );
-};
-
-
-
 export const getConceptCode = (code: CodeableConcept): string => {
 
   if (code) {
@@ -81,12 +68,12 @@ export const transformToConditionSummary = async (fhirCondition: MccCondition): 
   const profileMapping = {
     '2.16.840.1.113762.1.4.1222.159': 'CKD'
   }
-  var code
+  let code
   if (fhirCondition?.code?.coding) {
     code = fhirCondition?.code?.coding;
   }
 
-  var codeName = ''
+  let codeName = ''
   if (code) {
     codeName = await getFilenameFromValueSetCode(code.system, code.code)
   }

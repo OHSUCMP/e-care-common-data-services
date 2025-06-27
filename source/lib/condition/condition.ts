@@ -5,14 +5,18 @@ import Client from 'fhirclient/lib/Client';
 import { fhirclient } from 'fhirclient/lib/types';
 
 import { MccCondition, MccConditionList, MccConditionSummary } from '../../types/mcc-types';
+import { resourcesFrom } from '../../utils/fhir';
 import log from '../../utils/loglevel';
 import { getSupplementalDataClient } from '../goal/goal.util';
+
 import {
+  fhirOptions,
   notFoundResponse,
-  resourcesFrom,
   resourcesFromObject,
   transformToConditionSummary,
 } from './condition.util';
+
+
 
 enum ACTIVE_STATUS {
   ACTIVE,
@@ -73,11 +77,12 @@ const ACTIVE_KEYS = {
 
 
 export const getSupplementalConditions = async (launchURL: string, sdsClient: Client): Promise<Condition[]> => {
-  let allThirdPartyMappedConditions: Condition[] = [];
+  const allThirdPartyMappedConditions: Condition[] = [];
 
   if (sdsClient) {
     try {
       const linkages = await sdsClient.request('Linkage?item=Patient/' + sdsClient.patient.id);
+      log.info('AEYgetSupplementalConditions - linkages: ' + JSON.stringify(linkages));
       const urlSet = new Set();
 
       urlSet.add(launchURL)
@@ -95,7 +100,8 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
             fhirHeaderRequestOption.url = 'Condition?subject=' + item2.resource.reference;
 
             // Fetch third-party goals
-            const response = await sdsClient.request(fhirHeaderRequestOption);
+            const response: fhirclient.JsonArray = await sdsClient.request(fhirHeaderRequestOption, fhirOptions);
+            log.info('AEYgetSupplementalConditions - response: ' + JSON.stringify(response));
 
             // Process third-party goals
             const thirdPartyGoals: Condition[] = resourcesFrom(response) as Condition[];
@@ -116,7 +122,7 @@ export const getSupplementalConditions = async (launchURL: string, sdsClient: Cl
 };
 
 export function displayTransmitter(prov: Provenance | undefined): string | undefined {
-  var display: string | undefined
+  let display: string | undefined
 
   prov?.agent?.forEach(agent => {
     agent.type?.coding?.forEach(coding => {
@@ -132,7 +138,7 @@ export function displayTransmitter(prov: Provenance | undefined): string | undef
 export const getSummaryConditions = async (sdsURL: string, authURL: string, sdsScope: string): Promise<MccConditionList> => {
 
   const client = await FHIR.oauth2.ready();
-  let sdsClient = await getSupplementalDataClient(client, sdsURL, authURL, sdsScope);
+  const sdsClient = await getSupplementalDataClient(client, sdsURL, authURL, sdsScope);
 
   const activeConcerns: MccConditionSummary[] = [];
   const activeConditions: MccConditionSummary[] = [];
@@ -142,12 +148,14 @@ export const getSummaryConditions = async (sdsURL: string, authURL: string, sdsS
   const queryPath1 = `Condition?category=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fcondition-category%7Cproblem-list-item&_revinclude=Provenance:target`;
   const queryPath2 = `Condition?category=http%3A%2F%2Fhl7.org%2Ffhir%2Fus%2Fcore%2FCodeSystem%2Fcondition-category%7Chealth-concern&_revinclude=Provenance:target`;
 
-  const conditionRequest1: fhirclient.JsonObject = await client.patient.request(queryPath1);
-  const conditionRequest2: fhirclient.JsonObject = await client.patient.request(queryPath2);
-
+  const conditionRequest1: fhirclient.JsonArray = await client.patient.request(queryPath1, fhirOptions);
+  const conditionRequest2: fhirclient.JsonArray = await client.patient.request(queryPath2, fhirOptions);
+  log.info('AEYgetSummaryConditions - conditionRequest1: ' + JSON.stringify(conditionRequest1));
+  log.info('AEYgetSummaryConditions - conditionRequest2: ' + JSON.stringify(conditionRequest2));
   let sdsfilteredConditions2: MccCondition[] = [];
   if (sdsClient) {
-    const sdsconditionRequest2: fhirclient.JsonObject = await sdsClient.patient.request(queryPath2);
+    const sdsconditionRequest2: fhirclient.JsonArray = await sdsClient.patient.request(queryPath2, fhirOptions);
+    log.info('AEYgetSummaryConditions - sdsconditionRequest2: ' + JSON.stringify(sdsconditionRequest2));
     sdsfilteredConditions2 = resourcesFrom(sdsconditionRequest2) as MccCondition[];
   }
 
@@ -255,7 +263,7 @@ export const getConditions = async (): Promise<MccCondition[]> => {
   const client = await FHIR.oauth2.ready();
 
   const queryPath = `Condition`;
-  const conditionRequest: fhirclient.JsonObject = await client.patient.request(
+  const conditionRequest: fhirclient.JsonArray = await client.patient.request(
     queryPath
   );
 
@@ -266,8 +274,7 @@ export const getConditions = async (): Promise<MccCondition[]> => {
   ) as MccCondition[];
 
   log.info(
-    `getConditions - successful`
-  );
+    `getConditions - successful with length ${filteredConditions.length}`);
   log.debug({ serviceName: 'getConditions', result: filteredConditions });
   return filteredConditions;
 };

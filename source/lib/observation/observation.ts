@@ -6,14 +6,16 @@ import { EccMode } from '../../constants/mode';
 import { getAllCodes, getCodesFromValueSetCode } from '../../query/json';
 import type { ObservationMode } from '../../types';
 import { legacy_MccObservationCollection, MccObservation } from '../../types/mcc-types';
+import { resourcesFrom } from '../../utils/fhir';
 import log from '../../utils/loglevel';
 
 import {
   convertToObservationCollection,
   fhirOptions,
   notFoundResponse,
-  resourcesFrom,
 } from './observation.util';
+
+
 
 export const getObservation = async (code: string): Promise<MccObservation> => {
   if (!code) {
